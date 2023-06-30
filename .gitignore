@@ -5,3 +5,7 @@ obj/
 bin/
 *.out
 *.o
+*.exe
+*.db
+*.log
+*.pem
