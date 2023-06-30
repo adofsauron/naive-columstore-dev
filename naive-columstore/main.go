@@ -191,7 +191,7 @@ func main() {
 
 	// tuples, err := parseTuples("prices.csv")
 	// if err != nil {
-	// 	log.Fatal(err)
+	//     log.Fatal(err)
 	// }
 
 	// fmt.Println(len(tuples))

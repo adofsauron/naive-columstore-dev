@@ -27,7 +27,8 @@ func setupNameTimeProjectionTest(t *testing.T) NameTimeProjection {
 // Create a projection out of the fully formed db
 //
 // Postgres equivalent
-//  n/a
+//
+//	n/a
 func TestNameTimeProjectionFromPriceDB(t *testing.T) {
 	// Ensure test DB and projection are setup
 	//
@@ -79,8 +80,9 @@ func TestNameTimeProjectionFromPriceDB(t *testing.T) {
 //
 // Postgres equivalent(result # only, not performance equiv)
 // SELECT * FROM prices.mtgprice
-// 	WHERE name='Windswept Heath' AND
-// 	      time = timestamp '2016-04-09 03:51:45'  ORDER BY time DESC, price DESC;
+//
+//	WHERE name='Windswept Heath' AND
+//	      time = timestamp '2016-04-09 03:51:45'  ORDER BY time DESC, price DESC;
 func TestNameTimeProjectionLatest(t *testing.T) {
 
 	proj := setupNameTimeProjectionTest(t)

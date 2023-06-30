@@ -27,10 +27,11 @@ func setupPriceTest(t *testing.T) PriceDB {
 
 // Select all prices more than than 90 000 000 cents = $900K
 //
-// This should always return 0 results
+// # This should always return 0 results
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price > 9000000;
+//
+//	select count(*) from prices.mtgprice where price > 9000000;
 func TestPriceSelectNone(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -45,10 +46,11 @@ func TestPriceSelectNone(t *testing.T) {
 
 // Select all prices less than than 90 000 000 cents = $900K
 //
-// This should always return 1000000 results
+// # This should always return 1000000 results
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price < 9000000;
+//
+//	select count(*) from prices.mtgprice where price < 9000000;
 func TestPriceSelectAll(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -65,7 +67,8 @@ func TestPriceSelectAll(t *testing.T) {
 // rematerialize them into tuples
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price = 1458;
+//
+//	select count(*) from prices.mtgprice where price = 1458;
 func TestUint32Equal(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -89,7 +92,8 @@ func TestUint32Equal(t *testing.T) {
 // them into tuples
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where name = 'Griselbrand';
+//
+//	select count(*) from prices.mtgprice where name = 'Griselbrand';
 func TestFiniteString32Equal(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -114,7 +118,8 @@ func TestFiniteString32Equal(t *testing.T) {
 //
 // Postgres equivalent
 // select count(*) from prices.mtgprice where
-// 	name = 'Griselbrand' or name = 'Avacyn, Angel of Hope';
+//
+//	name = 'Griselbrand' or name = 'Avacyn, Angel of Hope';
 func TestFiniteString32Within(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -140,7 +145,8 @@ func TestFiniteString32Within(t *testing.T) {
 // rematerialize them into tuples
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price > 1000000;
+//
+//	select count(*) from prices.mtgprice where price > 1000000;
 func TestSimpleSelect(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -165,7 +171,8 @@ func TestSimpleSelect(t *testing.T) {
 // rematerialize them into tuples
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price > 1000000 and price < 1100000;
+//
+//	select count(*) from prices.mtgprice where price > 1000000 and price < 1100000;
 func TestUpperLowerANDSelect(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -196,7 +203,8 @@ func TestUpperLowerANDSelect(t *testing.T) {
 // rematerialize them into tuples
 //
 // Postgres equivalent
-//  select count(*) from prices.mtgprice where price > 1000000 or price > 1100000;
+//
+//	select count(*) from prices.mtgprice where price > 1000000 or price > 1100000;
 func TestUpperLowerORSelect(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -226,9 +234,10 @@ func TestUpperLowerORSelect(t *testing.T) {
 //
 // Postgres equivalent
 // with threshold as
-// 	(select to_timestamp('2015-10-13 15:07:12', 'YYYY-MM-DD-HH24-MI-SS'))
-// 	select count(*) from prices.mtgprice where
-// 		time > (select * from threshold);
+//
+//	(select to_timestamp('2015-10-13 15:07:12', 'YYYY-MM-DD-HH24-MI-SS'))
+//	select count(*) from prices.mtgprice where
+//	    time > (select * from threshold);
 func TestTimeAfterSelectAll(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -253,9 +262,10 @@ func TestTimeAfterSelectAll(t *testing.T) {
 //
 // Postgres equivalent
 // with threshold as
-// 	(select to_timestamp('2015-10-13 15:07:12', 'YYYY-MM-DD-HH24-MI-SS'))
-// 	select count(*) from prices.mtgprice where
-// 		time < (select * from threshold);
+//
+//	(select to_timestamp('2015-10-13 15:07:12', 'YYYY-MM-DD-HH24-MI-SS'))
+//	select count(*) from prices.mtgprice where
+//	    time < (select * from threshold);
 func TestTimeAfterSelectNone(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -276,9 +286,10 @@ func TestTimeAfterSelectNone(t *testing.T) {
 //
 // Postgres equivalent
 // with threshold as
-// 	(select to_timestamp('2015-11-24 20:39:29', 'YYYY-MM-DD-HH24-MI-SS'))
-// 	select count(*) from prices.mtgprice where
-// 		time > (select * from threshold);
+//
+//	(select to_timestamp('2015-11-24 20:39:29', 'YYYY-MM-DD-HH24-MI-SS'))
+//	select count(*) from prices.mtgprice where
+//	    time > (select * from threshold);
 func TestTimeAfterSelecAfterTimeWiseMidPoint(t *testing.T) {
 	db := setupPriceTest(t)
 
@@ -300,8 +311,9 @@ func TestTimeAfterSelecAfterTimeWiseMidPoint(t *testing.T) {
 //
 // Postgres equivalent
 // SELECT name, set, time, price FROM prices.mtgprice
-// 	WHERE name='Griselbrand' AND set='Avacyn Restored Foil'
-// 	ORDER BY time DESC LIMIT 1;
+//
+//	WHERE name='Griselbrand' AND set='Avacyn Restored Foil'
+//	ORDER BY time DESC LIMIT 1;
 func TestLatestPrice(t *testing.T) {
 
 	testTupleTime, err := time.Parse("2006-01-02 15:04:05",
@@ -344,7 +356,8 @@ func TestLatestPrice(t *testing.T) {
 //
 // Postgres equivalent
 // SELECT * FROM prices.mtgprice
-// 	WHERE name='Windswept Heath' ORDER BY time DESC, price DESC LIMIT 1;
+//
+//	WHERE name='Windswept Heath' ORDER BY time DESC, price DESC LIMIT 1;
 func TestLatestHighestPrice(t *testing.T) {
 
 	testTupleTime, err := time.Parse("2006-01-02 15:04:05",
