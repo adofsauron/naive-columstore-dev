@@ -189,14 +189,14 @@ func main() {
 	fmt.Println(stats.Alloc/1024,
 		stats.Lookups, stats.Mallocs, stats.Frees)
 
-	// tuples, err := parseTuples("prices.csv")
-	// if err != nil {
-	//     log.Fatal(err)
-	// }
+	tuples, err := parseTuples("prices.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// fmt.Println(len(tuples))
-	// parsed, err := tuples[20].ToPrice()
-	// fmt.Println(parsed, err)
+	fmt.Println(len(tuples))
+	parsed, err := tuples[20].ToPrice()
+	fmt.Println(parsed, err)
 }
 
 type RawTuple []string
